@@ -1,6 +1,4 @@
-import random, math
-
-
+import random
 class GrandNombre:
     def __init__(self, nombre: int):
         self.signe = 0 if nombre >= 0 else 1
@@ -494,13 +492,14 @@ def creationCle():
     p = nombrePremierMersenne()
     q = nombrePremierMersenne()
     n = p.multiplier(q)
-    phi = p.soustraire(1).multiplier(q.soustraire(1))
-    e = None
-    for i in range(3, n.en_entier()):
-        if phi.estPremierAvec(GrandNombre(i)):
-            e = GrandNombre(i)
-            break
-    if e == None:
+    phi = p.soustraire(GrandNombre.initialiser1()).multiplier(q.soustraire(GrandNombre.initialiser1()))
+    e = GrandNombre(65537)
+    if not(phi.estPremierAvec(e)):
+        for i in range(3, n.en_entier()):
+            if phi.estPremierAvec(GrandNombre(i)):
+                e = GrandNombre(i)
+                break
+    if e is None:
         raise ValueError("Aucun e n'est viable")
     d = e.inverserAvecModulo(phi)
     publique = (e, n)
@@ -508,10 +507,3 @@ def creationCle():
     return publique, privee
 
 
-publique, privee = creationCle()
-print(f"n est :")
-publique[1].afficher()
-print(f"La clé publique est e :")
-publique[0].afficher()
-print("La clé privée est d : ")
-privee[0].afficher()

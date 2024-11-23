@@ -1,3 +1,4 @@
+import grand_nombre
 from grand_nombre import GrandNombre
 import os
 
@@ -55,7 +56,34 @@ def renvoyer_traduction(nom_fichier: str):
 
 
 
-def chiffrer_fichier_rsa_grand_nombre(nom_fichier: str, nom_fichier_sortie: str, cle: int, module: int):
+def chiffrer_fichier_rsa_int(nom_fichier: str, nom_fichier_sortie: str, cle: int, module: int):
+    try:
+        with open(nom_fichier, "r") as fichier:
+            message = fichier.read()
+        if not message:
+            print(f"Erreur : Le fichier '{nom_fichier}' est vide ou contient un message invalide.")
+            return
+
+        message_gn = GrandNombre.initialiser(message)
+        cle_gn = GrandNombre(cle)
+        module_gn = GrandNombre(module)
+
+        # Chiffrement RSA
+        message_chiffrer = message_gn.exponentielEtModulo(cle_gn, module_gn)
+        if message_chiffrer is None:
+            print("Erreur : le chiffrement a échoué.")
+            return
+        message_chiffrer = ''.join(message_chiffrer.bits)
+
+        with open(nom_fichier_sortie, "w") as sortie:
+            sortie.write(message_chiffrer)
+        print(f"Message chiffré sauvegardé dans {nom_fichier_sortie}.")
+    except FileNotFoundError:
+        print(f"Le fichier '{nom_fichier}' est introuvable.")
+    except Exception as e:
+        print(f"Erreur lors du chiffrement : {e}")
+
+def chiffrer_fichier_rsa_grandNombre(nom_fichier: str, nom_fichier_sortie: str, cle : grand_nombre, module: grand_nombre):
     try:
         with open(nom_fichier, "r") as fichier:
             message = fichier.read()
@@ -65,11 +93,9 @@ def chiffrer_fichier_rsa_grand_nombre(nom_fichier: str, nom_fichier_sortie: str,
 
         # Initialiser GrandNombre (à adapter si nécessaire)
         message_gn = GrandNombre.initialiser(message)
-        cle_gn = GrandNombre(cle)
-        module_gn = GrandNombre(module)
 
         # Chiffrement RSA
-        message_chiffrer = message_gn.exponentielEtModulo(cle_gn, module_gn)
+        message_chiffrer = message_gn.exponentielEtModulo(cle, module)
         if message_chiffrer is None:
             print("Erreur : le chiffrement a échoué.")
             return
@@ -92,9 +118,13 @@ def sauvegarder_long_message(message: str, nom_fichier: str):
         numero += 1
     return numero
 
-def chiffrer_long_message(prefixe_entre: str, suffixe_sortie, numero: int, cle: int, module: int):
+def chiffrer_long_message_int(prefixe_entre: str, suffixe_sortie, numero: int, cle: int, module: int):
     for i in range(1, numero):
-        chiffrer_fichier_rsa_grand_nombre(prefixe_entre + str(i) + ".txt", suffixe_sortie + str(i) + ".txt", cle, module)
+        chiffrer_fichier_rsa_int(prefixe_entre + str(i) + ".txt", suffixe_sortie + str(i) + ".txt", cle, module)
+
+def chiffrer_long_message_grand_nombre(prefixe_entre: str, suffixe_sortie, numero: int, cle: grand_nombre, module: grand_nombre):
+    for i in range(1, numero):
+        chiffrer_fichier_rsa_grandNombre(prefixe_entre + str(i) + ".txt", suffixe_sortie + str(i) + ".txt", cle, module)
 
 def traduire_long_message(numero: int, nom_fichier: str):
     message = ''
