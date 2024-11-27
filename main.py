@@ -1,9 +1,9 @@
 import rsa
 
 from fichier import *
-from grand_nombre import creationCle
+from grand_nombre import creationCleRSA
 
-message = "Je ne suis pas interresser par le fait de te répondre Ganbold"
+message = "Ceci est une phrase test qui à pour but d'être asser longue pour que le test soit cohérent."
 nom_fichier = "texte"
 nom_fichier_chiffre = "chiffrer"
 nom_fichier_dechiffre = "dechiffrer"
@@ -16,7 +16,7 @@ if test == 1:
     module = public_key.n
     cle_privee = private_key.d
 elif test == 2:
-    public_key, private_key = creationCle()
+    public_key, private_key = creationCleRSA()
     cle_publique = public_key[0]
     module = public_key[1]
     cle_privee = private_key[0]
@@ -49,7 +49,9 @@ else:
     chiffrer_long_message_grand_nombre(nom_fichier_chiffre, nom_fichier_dechiffre, numero, cle_privee, module)
 
 traduire_long_message(numero, nom_fichier_dechiffre)
+print(f"\nEn sachant que le message originel est :\n{message}\n")
 
-supprimer_fichiers(nom_fichier, 6)
-supprimer_fichiers(nom_fichier_chiffre, 6)
-supprimer_fichiers(nom_fichier_dechiffre, 6)
+supprimer_fichiers(nom_fichier, 8)
+supprimer_fichiers(nom_fichier_chiffre, 8)
+supprimer_fichiers(nom_fichier_dechiffre, 8)
+
