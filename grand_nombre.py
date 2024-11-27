@@ -578,7 +578,7 @@ def est_premier(n, iterations=30):
     return True
 
 
-def nombre_premier_aleatoire(min_val=80, max_val=700):
+def nombre_premier_aleatoire(min_val=80, max_val=120):
     """
     Génère un nombre premier aléatoire entre min_val et max_val.
 
@@ -607,6 +607,7 @@ def nombrePremierMersenne():
 
         # Vérifier si M_n est premier
         if est_premier(mersenne):
+            print(mersenne)
             # Convertir en GrandNombre et retourner
             return GrandNombre(mersenne)
 
@@ -628,7 +629,7 @@ def creationCleRSA():
 
     :return: Une paire de clés publiques (e, n) et privées (d, n), sous forme de tuples.
     """
-    """
+
     # Générer deux nombres premiers de Mersenne distincts
     p = nombrePremierMersenne()
     q = nombrePremierMersenne()
@@ -636,8 +637,8 @@ def creationCleRSA():
     p_bits = q_bits = 100 // 2
     p = GrandNombre(nombre_premier_taille_controllee(p_bits))
     q = GrandNombre(nombre_premier_taille_controllee(q_bits))
-
-    while q == p:  # Assurer que p et q sont distincts
+    """
+    while q.comparer(p):  # Assurer que p et q sont distincts
         q = nombrePremierMersenne()
 
     # Calcul de n = p * q
