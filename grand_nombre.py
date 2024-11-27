@@ -607,20 +607,8 @@ def nombrePremierMersenne():
 
         # Vérifier si M_n est premier
         if est_premier(mersenne):
-            print(mersenne)
             # Convertir en GrandNombre et retourner
             return GrandNombre(mersenne)
-
-def nombre_premier_taille_controllee(bits):
-    """Génère un nombre premier avec un nombre de bits spécifié."""
-    while True:
-        # Générer un nombre aléatoire de la taille désirée
-        candidat = random.getrandbits(bits)
-        # Assurez-vous que le nombre est impair pour qu'il soit candidat à premier
-        candidat |= (1 << (bits - 1)) | 1  # Le plus grand bit et le plus bas sont à 1
-
-        if est_premier(candidat):  # Test de primalité rapide
-            return candidat
 
 
 def creationCleRSA():
@@ -633,11 +621,6 @@ def creationCleRSA():
     # Générer deux nombres premiers de Mersenne distincts
     p = nombrePremierMersenne()
     q = nombrePremierMersenne()
-    """
-    p_bits = q_bits = 100 // 2
-    p = GrandNombre(nombre_premier_taille_controllee(p_bits))
-    q = GrandNombre(nombre_premier_taille_controllee(q_bits))
-    """
     while q.comparer(p):  # Assurer que p et q sont distincts
         q = nombrePremierMersenne()
 
