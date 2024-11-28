@@ -82,9 +82,19 @@ class GrandNombre:
         """
         Divise l'objet GrandNombre par 2 en modifiant directement sa valeur binaire.
         """
+        #si l'entier est négait
+        if self.binaire[0] == '-':
+            self.binaire = self.binaire[1:]
+            if len(self.binaire) > 1:
+                # Si le bit n'est pas -1
+                self.binaire = self.binaire[:-1]
+                self.binaire = '-' + self.binaire
+            else:
+                # Si l'entier est -1, il devient 0 après la division par 2
+                self.binaire = '0'
         # Supprime le dernier bit de la représentation binaire
-        if len(self.binaire) > 1:
-            # Si l'entier est positif, on retire le dernier bit
+        elif len(self.binaire) > 1:
+            # Si le bit n'est pas 0 ou -1
             self.binaire = self.binaire[:-1]
         else:
             # Si l'entier est 0 ou 1, il devient 0 après la division par 2
@@ -134,10 +144,9 @@ class GrandNombre:
         if self.binaire is None:
             raise ValueError("La valeur binaire est absente.")
 
-        if self.binaire[0] == '-':  # Si le nombre est négatif
-            self.binaire = '-' + self.binaire[1:] + '0'  # Ajouter un 0 à la fin en conservant le signe
-        else:  # Si le nombre est positif
-            self.binaire += '0'  # Ajouter un 0 à la fin de la chaîne binaire
+        if self.binaire != '0':  # Si le nombre n'est pas 0
+            self.binaire += '0'
+
 
     def ajouter(self, autre):
         """
@@ -641,8 +650,6 @@ def creationCleRSA(min_val=80, max_val=700):
     d = e.inverse_modulaire(phi)
     # Retourner la clé publique (e, n) et la clé privée (d, n)
     return (e, n), (d, n)
-
-
 
 
 

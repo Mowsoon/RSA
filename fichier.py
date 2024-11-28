@@ -22,23 +22,6 @@ def en_octet(message):
     return message
 
 
-def traduire_fichier(nom_fichier: str):
-    try:
-        with open(nom_fichier, "r") as fichier:
-            contenu_binaire = fichier.read()
-        contenu_binaire = en_octet(contenu_binaire)
-        if contenu_binaire:
-            # Diviser le contenu binaire en blocs de 8 bits (1 octet)
-            message = ''.join(chr(int(contenu_binaire[i:i + 8], 2)) for i in range(0, len(contenu_binaire), 8))
-            print(f"Contenu du fichier '{nom_fichier}' en texte : {message}")
-        else:
-            print(f"Le fichier '{nom_fichier}' est vide.")
-    except FileNotFoundError:
-        print(f"Le fichier '{nom_fichier}' est introuvable.")
-    except ValueError:
-        print(f"Erreur : Le contenu du fichier n'est pas un nombre binaire valide.")
-
-
 def renvoyer_traduction(nom_fichier: str):
     try:
         with open(nom_fichier, "r") as fichier:
