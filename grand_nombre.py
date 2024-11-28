@@ -639,7 +639,6 @@ def creationCleRSA(min_val=80, max_val=700):
 
     # Calcul de d, l'inverse modulaire de e modulo φ(n)
     d = e.inverse_modulaire(phi)
-
     # Retourner la clé publique (e, n) et la clé privée (d, n)
     return (e, n), (d, n)
 
