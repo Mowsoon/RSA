@@ -578,7 +578,7 @@ def est_premier(n, iterations=30):
     return True
 
 
-def nombre_premier_aleatoire(min_val=80, max_val=120):
+def nombre_premier_aleatoire(min_val=80, max_val=700):
     """
     Génère un nombre premier aléatoire entre min_val et max_val.
 
@@ -592,7 +592,7 @@ def nombre_premier_aleatoire(min_val=80, max_val=120):
             return candidat
 
 
-def nombrePremierMersenne():
+def nombrePremierMersenne(min_val, max_val):
     """
     Génère un nombre premier de Mersenne sous la forme d'un GrandNombre.
 
@@ -600,7 +600,7 @@ def nombrePremierMersenne():
     """
     while True:
         # Générer un n premier aléatoire
-        n = nombre_premier_aleatoire()
+        n = nombre_premier_aleatoire(min_val, max_val)
 
         # Calculer 2^n - 1
         mersenne = (1 << n) - 1  # Décalage binaire équivalent à 2^n - 1
@@ -611,7 +611,7 @@ def nombrePremierMersenne():
             return GrandNombre(mersenne)
 
 
-def creationCleRSA():
+def creationCleRSA(min_val=80, max_val=700):
     """
     Génère une paire de clés RSA en utilisant des nombres premiers de Mersenne.
 
@@ -619,14 +619,13 @@ def creationCleRSA():
     """
 
     # Générer deux nombres premiers de Mersenne distincts
-    p = nombrePremierMersenne()
-    q = nombrePremierMersenne()
+    p = nombrePremierMersenne(min_val, max_val)
+    q = nombrePremierMersenne(min_val, max_val)
     while q.comparer(p):  # Assurer que p et q sont distincts
-        q = nombrePremierMersenne()
+        q = nombrePremierMersenne(min_val, max_val)
 
     # Calcul de n = p * q
     n = p.multiplier(q)
-
     # Calcul de φ(n) = (p-1) * (q-1)
     phi = (p.soustraire(initialiser1())).multiplier(q.soustraire(initialiser1()))
 
