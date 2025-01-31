@@ -1,6 +1,6 @@
 # Guide d'Installation et d'Exécution du Projet RSA
 
-Ce projet contient un ensemble de scripts qui implémentent des algorithmes de chiffrement RSA, utilisant à la fois une implémentation maison (`rsa_simple`) et la bibliothèque `cryptography`. Ce guide explique comment préparer votre environnement pour faire fonctionner ce code.
+Ce projet académique contient un ensemble de scripts qui implémentent des algorithmes de chiffrement RSA, utilisant à la fois une implémentation maison (`rsa_simple`) et la bibliothèque `cryptography`. Ce guide explique comment préparer votre environnement pour faire fonctionner ce code.
 
 ## Prérequis
 
